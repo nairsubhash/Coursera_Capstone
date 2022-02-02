@@ -1,0 +1,19 @@
+SAP stock reconciliation ewm - Inbound comes in from SAP - We likely need SAP updates (for the inbound??)
+
+If IntegrationID = FRM (Loop through all)
+   Save in BI_data dataxml2 with intent to Execute ExecutionGroupID="SAP_Inventory_Update_EWM"
+Else If IntegrationID = STR and BI Config value for $EnableStockRecon  = True
+   Save in BI_data dataxml2 with intent to Execute ExecutionGroupID="SAP_Inventory_Update_EWM"
+Else
+    Bypass
+End If 
+
+BMS_INT_SAP_Stock_reconciliation_EWM behavior:
+select top 1 xml from dataxml2 where TransType = 'SAP_Stock_Reconciliation_EWM'"
+Post that xml to Sc_Messages as MES message type - Not clear why this is being done - (Do we intend to send a message to SAP? I do not see corresponding ERP messages)
+
+Update Syncade (QC dates, QC status etc.)
+
+
+
+
